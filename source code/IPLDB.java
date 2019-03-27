@@ -50,6 +50,7 @@ public class IPLDB {
 
         try
         {
+            results.first();
             Name.setText(results.getString("PlayerName"));
             Team.setText(results.getString("Team"));
             Age.setText(results.getString("PlayerAge"));
