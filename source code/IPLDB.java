@@ -18,50 +18,37 @@ public class IPLDB {
         return PlayerRadioButton.isSelected()? true : false;
     }
 
-    void DisplayPlayerResults(ResultSet results)
+    void DisplayPlayerResults(ResultSet results, JFrame MainFrame)
     {
         JPanel Results;
-        JLabel NameLabel, TeamLabel, AgeLabel, CountryLabel, RoleLabel, RunsLabel, WicketLabel;
-        JTextField Name, Team, Age, Country, Role, Runs, Wicket;
-
-        NameLabel = new JLabel("Player Name");
-        TeamLabel = new JLabel("Team Name");
-        AgeLabel = new JLabel("Age");
-        CountryLabel = new JLabel("Country");
-        RoleLabel = new JLabel("Role");
-        RunsLabel = new JLabel("Runs");
-        WicketLabel = new JLabel("Wickets");
-
-        Name = new JTextField(30);
-        Team = new JTextField(30);
-        Age = new JTextField(30);
-        Country = new JTextField(30);
-        Role = new JTextField(30);
-        Runs = new JTextField(30);
-        Wicket = new JTextField(30);
-
-        Name.setEditable(false);
-        Team.setEditable(false);
-        Age.setEditable(false);
-        Country.setEditable(false);
-        Role.setEditable(false);
-        Runs.setEditable(false);
-        Wicket.setEditable(false);
+        JLabel Name, Team, Age, Country, Role, Runs, Wicket;
 
         try
         {
             results.first();
-            Name.setText(results.getString("PlayerName"));
-            Team.setText(results.getString("Team"));
-            Age.setText(results.getString("PlayerAge"));
-            Country.setText(results.getString("PlayerCountry"));
-            Role.setText(results.getString("PlayerRole"));
-            Runs.setText(results.getString("PlayerRuns"));
-            Wicket.setText(results.getString("PlayerWicket"));
+            Name = new JLabel("<html>Player Name<br>" + results.getString("PlayerName") + "</html>");
+            Team = new JLabel("<html>Team<br>" + results.getString("Team") + "</html>");
+            Age = new JLabel("<html>Age<br>" + results.getString("PlayerAge") + "</html>");
+            Country = new JLabel("<html>Coutnry<br>" + results.getString("PlayerCountry") + "</html>");
+            Role = new JLabel("<html>Role<br>" + results.getString("PlayerRole") + "</html>");
+            Runs = new JLabel("<html>Runs<br>" + results.getString("PlayerRuns") + "</html>");
+            Wicket = new JLabel("<html>Wickets<br>" + results.getString("PlayerWicket") + "</html>");
+
+            Results = new JPanel();
+
+            Results.add(Name);
+            Results.add(Team);
+            Results.add(Age);
+            Results.add(Country);
+            Results.add(Role);
+            Results.add(Runs);
+            Results.add(Wicket);
+
+            MainFrame.add(Results);
+            MainFrame.setLayout(new FlowLayout());
+            MainFrame.setVisible(true);
         } catch (SQLException e) {
             System.out.println(e);
-        } finally {
-            System.out.println("\nFuck you too");
         }
     }
 
@@ -106,7 +93,7 @@ public class IPLDB {
                 {
                     PlayerQuery query = new PlayerQuery();
                     ResultSet results = query.GetPlayerResults(text);
-                    DisplayPlayerResults(results);
+                    DisplayPlayerResults(results, MainFrame);
                 }
                 else
                 {
