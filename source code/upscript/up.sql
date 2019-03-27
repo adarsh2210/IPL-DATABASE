@@ -1,1 +1,1 @@
-create database ipl;
+create database ipldb;
